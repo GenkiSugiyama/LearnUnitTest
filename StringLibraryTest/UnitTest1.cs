@@ -27,4 +27,15 @@ public class UnitTest1
             Assert.IsFalse(result, string.Format("Expected for '{0}': true; Actual: {1}", word, result));
         }
     }
+
+    [TestMethod]
+    public void 空文字やNullの場合はFalseを返すか()
+    {
+        string?[] words = { string.Empty, null };
+        foreach (string word in words)
+        {
+            bool result = word.StartsWithUpper();
+            Assert.IsFalse(result, string.Format("Expected for '{0}': false; Actual: {1}", word == null ? "<null>" : word, result));
+        }
+    }
 }
