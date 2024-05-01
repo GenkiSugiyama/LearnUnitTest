@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LearnMyCalculatorApp;
+using FluentAssertions;
 
 namespace LearnMyCalculatorApp.Tests
 {
@@ -15,14 +16,25 @@ namespace LearnMyCalculatorApp.Tests
             Assert.IsNotNull(calculator);
         }
 
-        [TestMethod]
-        public void AddTest()
+        // [TestMethod]
+        // データドリブンテスト
+        // DataRow属性でパラメーターを指定して外から値を渡す
+        // その渡された値分テストを回してくれる
+        [DataTestMethod]
+        [DataRow(1, 1, 2)]
+        [DataRow(2, 2, 4)]
+        [DataRow(3, 5, 8)]
+        public void AddTest(int x, int y, int expected)
         {
             // Act
-            var actual = calculator.Add(1, 1);
+            var actual = calculator.Add(x, y);
 
             // Assert
-            Assert.AreEqual(2, actual);
+            // Assert.AreEqual(2, actual);
+
+            // Fluentアサーション
+            // テストコードをより事前言語っぽい書き方にしたもの
+            actual.Should().Be(expected);
         }
 
         [TestMethod]
